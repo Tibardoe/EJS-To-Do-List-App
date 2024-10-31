@@ -21,9 +21,9 @@
 
     <h1>Let's Do It!</h1>
 
-    <form class="post-form" action="/post" method="POST">
-        <input type="text" name="task" placeholder="Add a task">
-        <button type="submit">Go Get It</button>
+    <form class="post-form" action="/" method="POST">
+        <input class="new-task" type="text" name="task" placeholder="Add a task">
+        <button class="add-button" type="submit">Go Get It</button>
     </form>
 
 
@@ -31,15 +31,13 @@
     <ul class="item">
         <% items.forEach(item=> { %>
             <div class="item-box">
-                <a href=""><img src="/images/Check-Circle.svg" alt="Check done"></a>
+                <button class="check btn"><img src="/images/Check-Circle.svg" alt="Check done"></button>
                 <li>
                     <%= item.task %>
                 </li>
-                <a href="/edit/<%= item.id %>"><img src="/images/edit.svg" alt="Edit"></a>
-                <form class="delete-form" action="/delete">
-                    <a href="/delete">
-                        <img src="/images/delete.svg" alt="Delete">
-                    </a>
+                <button class="edit btn"><img src="/images/edit.svg" alt="Edit"></button>
+                <form class="delete-form" action="/delete/<%= item.id %>" method="POST">
+                    <button type="submit" class="delete btn"><img src="/images/delete.svg" alt="Delete"></button>
                 </form>
             </div>
             <% }); %>

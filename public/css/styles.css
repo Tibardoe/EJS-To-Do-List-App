@@ -20,18 +20,19 @@ h1 {
     color: white;
 }
 
-input {
+.new-task {
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
 }
 
-button {
+.add-button {
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
 }
 
-input,
-button {
+.new-task,
+.add-button,
+.btn {
     border: none;
     font-size: 2rem;
     padding: 10px;
@@ -71,4 +72,10 @@ li {
     border-radius: 50px;
     padding: 10px;
     top: 50%;
+}
+
+.btn {
+    background: none;
+    padding: 0;
+    display: block;
 }
