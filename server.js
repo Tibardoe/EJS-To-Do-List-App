@@ -15,7 +15,7 @@ app.get("/", (req, res) => {
     res.render("index.ejs", { items: items })
 });
 
-app.post("/", (req, res) => {
+app.post("/post", (req, res) => {
     const newId = lastId += 1
     const item = {
         id: newId,
@@ -26,15 +26,11 @@ app.post("/", (req, res) => {
     if (item.task) {
         try {
             items.push(item);
-            res.redirect("/");
+            res.redirect("/")
         } catch (error) {
             console.log(error.message);
         };
     }
-
-    res.redirect("/")
-
-
 });
 
 app.patch("/:id", (req, res) => {
@@ -43,7 +39,7 @@ app.patch("/:id", (req, res) => {
     console.log(findItem);
 });
 
-app.delete("/delete/:id", (req, res) => {
+app.post("/post/:id", (req, res) => {
     const id = parseInt(req.params.id);
     const findItem = items.findIndex(item => item.id === id);
 
