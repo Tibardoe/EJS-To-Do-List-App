@@ -15,9 +15,36 @@ body {
 }
 
 h1 {
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: .15rem solid black;
+    width: fit-content;
     font-size: 5rem;
     margin-bottom: 20px;
     color: white;
+    animation: typing 2s steps(50, end), blink-caret .75s step-end infinite;
+}
+
+@keyframes typing {
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 100%;
+    }
+}
+
+@keyframes blink-caret {
+
+    from,
+    to {
+        border-color: transparent;
+    }
+
+    50% {
+        border-color: black;
+    }
 }
 
 .new-task {
@@ -28,6 +55,7 @@ h1 {
 .add-button {
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
+    transition: 0.3s ease;
 }
 
 .new-task,
@@ -36,6 +64,11 @@ h1 {
     border: none;
     font-size: 2rem;
     padding: 10px;
+}
+
+.add-button:hover {
+    background-color: rgb(43, 43, 42);
+    color: rgb(207, 200, 200);
 }
 
 .item {
@@ -71,11 +104,117 @@ li {
     flex: 1;
     border-radius: 50px;
     padding: 10px;
-    top: 50%;
+}
+
+li.dim-text {
+    color: rgb(127, 126, 126);
+
 }
 
 .btn {
     background: none;
     padding: 0;
     display: block;
+}
+
+.edit-input {
+    display: none;
+    background: none;
+    color: white;
+    font-size: 1.5rem;
+    border: none;
+    flex: 1;
+    outline: none;
+}
+
+.mode-container {
+    display: flex;
+    width: 80%;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.mode {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    transition: background-color 0.3s;
+}
+
+.dark {
+    background-color: black;
+}
+
+.white {
+    background-color: white;
+}
+
+body.dark-mode {
+    background-image: linear-gradient(to right, rgb(0, 0, 1), rgb(12, 62, 54));
+}
+
+body.light-mode {
+    background-image: linear-gradient(to right, rgb(183, 239, 240), rgba(57, 89, 84, 0.9));
+}
+
+h1.dark-heading {
+    color: black;
+}
+
+h1.white-heading {
+    color: white;
+}
+
+.new-task.dark-item {
+    background-color: rgb(228, 228, 228);
+    color: white;
+}
+
+.new-task.light-item {
+    background-color: rgb(228, 228, 228);
+    color: black;
+}
+
+
+@media (max-width: 750px) {
+    h1 {
+        font-size: 3rem;
+    }
+
+    .new-task {
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+    }
+
+    .add-button {
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
+
+    .new-task,
+    .add-button,
+    .btn {
+        border: none;
+        font-size: 1.2rem;
+        padding: 5px;
+    }
+
+    .item {
+        margin: 10px 0;
+        padding: 10px;
+    }
+
+    img {
+        width: 30px;
+        height: 30px;
+        display: block;
+    }
+
+    .item-box {
+        margin: 10px 0;
+        border-radius: 50px;
+        font-size: 1rem;
+        padding: 5px 10px;
+    }
 }

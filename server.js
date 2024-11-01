@@ -33,10 +33,13 @@ app.post("/post", (req, res) => {
     }
 });
 
-app.patch("/:id", (req, res) => {
+app.patch("/post/edit/:id", (req, res) => {
     const id = parseInt(req.body.id);
     const findItem = items.find(item => item.id === id);
-    console.log(findItem);
+    const updateItem = {
+        id: findItem.id,
+        task: findItem.task
+    }
 });
 
 app.post("/post/:id", (req, res) => {

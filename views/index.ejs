@@ -15,11 +15,13 @@
 
 <body>
     <div class="mode-container">
-        <span class="dark mode"></span>
-        <span class="white mode"></span>
+        <span onclick="toggleMode('dark')" class="dark mode"></span>
+        <span onclick="toggleMode('light')" class="white mode"></span>
     </div>
 
-    <h1>Let's Do It!</h1>
+    <div>
+        <h1 id="animated-headig">Let's Do It!</h1>
+    </div>
 
     <form class="post-form" action="/post" method="POST">
         <input class="new-task" type="text" name="task" placeholder="Add a task">
@@ -27,23 +29,104 @@
     </form>
 
 
-    <!-- <div class="items-container"> -->
-    <ul class="item">
-        <% items.forEach(item=> { %>
-            <div class="item-box">
-                <button class="check btn"><img src="/images/Check-Circle.svg" alt="Check done"></button>
-                <li>
-                    <%= item.task %>
-                </li>
-                <button class="edit btn"><img src="/images/edit.svg" alt="Edit"></button>
-                <form class="delete-form" action="/post/<%= item.id %>" method="post">
-                    <button type="submit" class="delete btn"><img src="/images/delete.svg" alt="Delete"></button>
-                </form>
-            </div>
-            <% }); %>
-    </ul>
+    <div class="items-container">
+        <ul class="item">
+            <% items.forEach(item=> { %>
+                <div class="item-box">
+                    <button onclick="strikeThroughText(this)" class="check btn"><img src="/images/Check-Circle.svg"
+                            alt="Check done"></button>
+                    <form action="/post/edit"></form>
+                    <li>
+                        <span class="task-text">
+                            <%= item.task %>
+                        </span>
+                        <input class="edit-input" value="<%= item.task %>" type="text">
 
-    <!-- </div> -->
+                    </li>
+                    <button onclick="enableEdit(this)" class="edit btn"><img src="/images/edit.svg" alt="Edit"></button>
+                    <form class="delete-form" action="/post/<%= item.id %>" method="post">
+                        <button type="submit" class="delete btn"><img src="/images/delete.svg" alt="Delete"></button>
+                    </form>
+                </div>
+                <% }); %>
+        </ul>
+    </div>
+
+
+    <script>
+        function strikeThroughText(button) {
+            const listItem = button.parentElement.querySelector("li");
+
+            if (listItem.style.textDecoration === "line-through") {
+                listItem.style.textDecoration = "none";
+                listItem.classList.remove("dim-text")
+            } else {
+                listItem.style.textDecoration = "line-through";
+                listItem.classList.add("dim-text")
+            }
+        };
+
+        function enableEdit(editButton) {
+            const listItem = editButton.parentElement;
+            const taskText = listItem.querySelector(".task-text");
+            const editInput = listItem.querySelector(".edit-input");
+
+            taskText.style.display = "none";
+            editInput.style.display = "flex";
+            editInput.focus();
+
+            editInput.addEventListener("keydown", (event) => {
+                if (event.key === "Enter") {
+                    saveEdit(listItem)
+                };
+            });
+
+            editInput.addEventListener("blur", () => {
+                saveEdit(listItem);
+            });
+        };
+
+        function saveEdit(listItem) {
+            const taskText = listItem.querySelector(".task-text");
+            const editInput = listItem.querySelector(".edit-input");
+
+            taskText.textContent = editInput.value;
+            taskText.style.display = "inline";
+            editInput.style.display = "none";
+        };
+
+        function toggleMode(mode) {
+            const body = document.body;
+            const heading = document.querySelector("h1");
+            const inputTaskField = document.querySelector(".new-task");
+
+
+            if (mode === "dark") {
+                body.classList.add("dark-mode");
+                body.classList.remove("light-mode");
+
+                heading.classList.add("white-heading");
+                heading.classList.remove("dark-heading");
+
+                inputTaskField.classList.add("dark-item");
+                inputTaskField.classList.remove("light-item");
+            } else {
+                body.classList.add("light-mode");
+                body.classList.remove("dark-mode");
+
+                heading.classList.add("dark-heading");
+                heading.classList.remove("white-heading");
+
+                inputTaskField.classList.add("light-item");
+                inputTaskField.classList.remove("dark-item");
+            }
+        }
+
+        window.onload = function () {
+            const heading = document.getElementById('animated-heading');
+            heading.classList.add('animate');
+        }
+    </script>
 
 </body>
 
